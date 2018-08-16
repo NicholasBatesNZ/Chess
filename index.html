@@ -2,24 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Chess</title>
     <link rel="stylesheet" href="chessboard.css"/>
     <script src="jquery.js"></script>
+    <style>
+        @media (orientation: landscape) {
+            #board {
+                width: 75vh;
+            }
+        }
+        @media (orientation: portrait) {
+            #board {
+                width: 95vw;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="board" style="width: 400px"></div>
+    <div id="board"></div>
     <script src="chessboard.js"></script>
     <script>
-        function onChange(oldPos, newPos) {
-            console.log(Chessboard.objToFen(newPos));
-        }
         var board = Chessboard("#board", {
             draggable: true,
             position: prompt("Enter fen: ", "start"),
-            onChange: onChange,
+            onChange: (oldPos, newPos) => console.log(Chessboard.objToFen(newPos)),
             dropOffBoard: "trash",
             sparePieces: true
-        })
+        });
     </script>
 </body>
 </html>
